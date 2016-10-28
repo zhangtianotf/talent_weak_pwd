@@ -9,6 +9,7 @@ user_pwd = [
     ["root", "root"],
     ["admin", "admin"]
 ]
+# result = open('result_linux.txt', 'a+')
 result = open('result_win.txt', 'a+')
 
 
@@ -18,18 +19,11 @@ def check_pass(ip_po):
     port = tem[1]
     # print 'testing ' + host + ' on ' + port,
     try:
-        # a = time.time()
         tn = telnetlib.Telnet(host, port=port, timeout=10)
         # tn.set_debuglevel(2)
-        # b = time.time()
-        # print "telnet", b - a
         tn.read_until("login", timeout=10)
-        # c = time.time()
-        # print "username", c - b
         tn.write(user.encode('ascii') + "\r\n".encode('ascii'))
         tn.read_until("word", timeout=10)
-        # d = time.time()
-        # print "password", d - c
         tn.write(pwd.encode('ascii') + "\r\n".encode('ascii'))
         time.sleep(.5)
         r = tn.read_very_eager()
